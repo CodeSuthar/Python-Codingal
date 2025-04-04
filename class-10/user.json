@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Aditya Suthar",
+            "username": "CodeSuthar",
+            "admin": true
+        },
+        {
+            "id": 2,
+            "name": "codingal education",
+            "username": "codingal",
+            "admin": false
+        }
+    ]
+}
