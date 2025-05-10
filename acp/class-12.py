@@ -1,13 +1,4 @@
 def tuple_to_list(input_tuple):
-    """
-    Converts a tuple to a list.
-
-    Args:
-        input_tuple: The tuple to be converted.
-
-    Returns:
-        A list containing the elements of the input tuple.
-    """
     output_list = list(input_tuple)
     return output_list
 
