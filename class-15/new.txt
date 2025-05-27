@@ -1,0 +1,1 @@
+Hello, I have created a file named codingal.txt using Python to write text in it.
