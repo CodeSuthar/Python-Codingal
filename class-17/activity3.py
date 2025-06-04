@@ -1,43 +1,51 @@
-from tkinter import Tk, Label, Button, StringVar, messagebox
+from tkinter import Tk, Label, Button, StringVar, messagebox, Toplevel
+import random
 
-# Window on top of the window for rock, paper, scissors game
+class RockPaperScissors:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Rock Paper Scissors")
+        
+        self.user_choice = StringVar()
+        self.computer_choice = StringVar()
+        self.result = StringVar()
+        
+        Label(root, text="Choose your move:").pack()
+        
+        Button(root, text="Rock", command=lambda: self.play("Rock")).pack()
+        Button(root, text="Paper", command=lambda: self.play("Paper")).pack()
+        Button(root, text="Scissors", command=lambda: self.play("Scissors")).pack()
+        
+    def play(self, user_move):
+        choices = ["Rock", "Paper", "Scissors"]
+        computer_move = random.choice(choices)
+        
+        self.user_choice.set(f"Your choice: {user_move}")
+        self.computer_choice.set(f"Computer's choice: {computer_move}")
+        
+        if user_move == computer_move:
+            self.result.set("Result: It's a tie!")
+        elif (user_move == "Rock" and computer_move == "Scissors") or \
+             (user_move == "Paper" and computer_move == "Rock") or \
+             (user_move == "Scissors" and computer_move == "Paper"):
+            self.result.set("Result: You win!")
+        else:
+            self.result.set("Result: Computer wins!")
+        
+        self.show_result()
+    
+    def show_result(self):
+        top = Toplevel(self.root)
+        top.title("Game Result")
+        top.geometry("300x150")
+        top.attributes('-topmost', True)
+        
+        Label(top, textvariable=self.user_choice).pack()
+        Label(top, textvariable=self.computer_choice).pack()
+        Label(top, textvariable=self.result).pack()
+        
+        Button(top, text="OK", command=top.destroy).pack()
 
 root = Tk()
-root.title("Rock, Paper, Scissors Game")
-root.geometry("400x400")
-
-# Function to display the result of the game
-def play_game(player_choice):
-    import random
-
-    choices = ["Rock", "Paper", "Scissors"]
-    computer_choice = random.choice(choices)
-
-    if player_choice == computer_choice:
-        result = "It's a tie!"
-    elif (player_choice == "Rock" and computer_choice == "Scissors") or \
-         (player_choice == "Paper" and computer_choice == "Rock") or \
-         (player_choice == "Scissors" and computer_choice == "Paper"):
-        result = f"You win! Computer chose {computer_choice}."
-    else:
-        result = f"You lose! Computer chose {computer_choice}."
-
-    result_var.set(result)
-
-# Variable to hold the result
-result_var = StringVar()
-result_var.set("Make your choice!")
-# Labels to display the result
-result_label = Label(root, textvariable=result_var, font=("Arial", 14), pady=20)
-result_label.pack()
-
-# Buttons for player choices
-rock_button = Button(root, text="Rock", command=lambda: play_game("Rock"), width=10, font=("Garamond", 12))
-rock_button.pack(pady=5)
-paper_button = Button(root, text="Paper", command=lambda: play_game("Paper"), width=10, font=("Garamond", 12))
-paper_button.pack(pady=5)
-scissors_button = Button(root, text="Scissors", command=lambda: play_game("Scissors"), width=10, font=("Garamond", 12))
-scissors_button.pack(pady=5)
-
-# Start the Tkinter event loop
+app = RockPaperScissors(root)
 root.mainloop()
